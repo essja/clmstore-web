@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: clmstore-web
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: "https://clmstore-backend.onrender.com/api/v1"
