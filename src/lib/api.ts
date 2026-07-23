@@ -1,6 +1,6 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000/api/v1';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://clmstore-backend.onrender.com/api/v1';
 
 export const api: AxiosInstance = axios.create({
   baseURL: BASE_URL,
