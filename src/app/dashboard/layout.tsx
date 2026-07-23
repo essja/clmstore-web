@@ -1,0 +1,185 @@
+'use client';
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { LayoutDashboard, ShoppingBag, UtensilsCrossed, BarChart3, Settings, LogOut, Store } from 'lucide-react';
+import { useAuthStore } from '@/store/auth';
+import toast from 'react-hot-toast';
+import { authApi } from '@/lib/api';
+
+const NAV = [
+  { href: '/dashboard', label: 'Overview', icon: LayoutDashboard, exact: true },
+  { href: '/dashboard/orders', label: 'Orders Stream', icon: ShoppingBag },
+  { href: '/dashboard/menu', label: 'Menu Manager', icon: UtensilsCrossed },
+  { href: '/dashboard/earnings', label: 'Earnings & Payouts', icon: BarChart3 },
+  { href: '/dashboard/settings', label: 'Store Settings', icon: Settings },
+];
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const { user, isAuthenticated, logout, _hasHydrated } = useAuthStore();
+
+  useEffect(() => {
+    if (!_hasHydrated) return;
+    if (!isAuthenticated) { router.push('/login'); return; }
+    if (user?.role !== 'restaurant_owner') { router.push('/home'); }
+  }, [isAuthenticated, user, _hasHydrated]);
+
+  const handleLogout = async () => {
+    try { await authApi.logout(); } catch {}
+    logout();
+    router.push('/');
+    toast.success('Signed out 👋');
+  };
+
+  const isActive = (href: string, exact?: boolean) => exact ? pathname === href : pathname.startsWith(href);
+
+  return (
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#f8fafc', color: '#0f172a' }}>
+
+      {/* ── RESTAURANT VENDOR SIDEBAR ── */}
+      <aside style={{
+        width: '260px', flexShrink: 0, background: '#0b132b', color: '#ffffff',
+        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        padding: '24px 16px', borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+        position: 'sticky', top: 0, height: '100vh', zIndex: 40,
+      }} className="hidden md:flex">
+        
+        <div>
+          {/* Brand Logo Header */}
+          <Link href="/home" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '28px', padding: '0 8px' }}>
+            <div style={{
+              width: '40px', height: '40px', borderRadius: '12px',
+              background: 'linear-gradient(135deg, #10b981, #059669)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontWeight: 900, fontSize: '15px', color: '#fff',
+              boxShadow: '0 0 16px rgba(16, 185, 129, 0.4)',
+            }}>
+              CL
+            </div>
+            <div>
+              <span style={{ fontWeight: 900, fontSize: '19px', color: '#ffffff', letterSpacing: '-0.02em', display: 'block', lineHeight: 1 }}>
+                CLMStore
+              </span>
+              <span style={{ fontSize: '10px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                Store Dashboard 🍽️
+              </span>
+            </div>
+          </Link>
+
+          {/* Navigation Items */}
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            {NAV.map(({ href, label, icon: Icon, exact }) => {
+              const active = isActive(href, exact);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '12px',
+                    padding: '12px 14px', borderRadius: '14px', textDecoration: 'none',
+                    fontSize: '14px', fontWeight: active ? 800 : 600,
+                    transition: 'all 0.2s ease',
+                    background: active ? 'linear-gradient(135deg, #10b981, #059669)' : 'transparent',
+                    color: active ? '#ffffff' : '#94a3b8',
+                    boxShadow: active ? '0 4px 16px rgba(16, 185, 129, 0.35)' : 'none',
+                  }}
+                >
+                  <Icon size={18} />
+                  <span>{label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* User Footer Profile Card */}
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.08)',
+          borderRadius: '16px', padding: '14px', marginTop: '16px',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+            <div style={{
+              width: '36px', height: '36px', borderRadius: '12px',
+              background: 'linear-gradient(135deg, #10b981, #059669)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontWeight: 900, fontSize: '13px', color: '#fff', flexShrink: 0,
+            }}>
+              {user?.first_name?.[0] ?? 'V'}
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }} className="line-clamp-1">
+                {user?.first_name} {user?.last_name}
+              </p>
+              <p style={{ fontSize: '10px', color: '#10b981', fontWeight: 700 }}>
+                Restaurant Partner
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            style={{
+              width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+              background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.25)',
+              color: '#ef4444', fontWeight: 700, fontSize: '12px', padding: '8px',
+              borderRadius: '10px', cursor: 'pointer', fontFamily: 'inherit',
+              transition: 'all 0.2s',
+            }}
+          >
+            <LogOut size={14} /> Sign Out
+          </button>
+        </div>
+      </aside>
+
+      {/* ── MAIN CONTENT CONTAINER ── */}
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+
+        {/* Mobile Top Header */}
+        <div style={{
+          background: '#0b132b', color: '#ffffff', padding: '14px 20px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }} className="md:hidden">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '11px', color: '#fff' }}>CL</div>
+            <span style={{ fontWeight: 900, fontSize: '16px' }}>Store Dashboard</span>
+          </div>
+          <button onClick={handleLogout} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer' }}>
+            <LogOut size={18} />
+          </button>
+        </div>
+
+        {/* Mobile Bottom Navigation Dock */}
+        <div style={{
+          background: '#ffffff', borderTop: '1px solid #e2e8f0',
+          position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 40,
+          display: 'flex', padding: '6px 0', boxShadow: '0 -4px 16px rgba(0,0,0,0.06)',
+        }} className="md:hidden">
+          {NAV.map(({ href, label, icon: Icon, exact }) => {
+            const active = isActive(href, exact);
+            return (
+              <Link
+                key={href}
+                href={href}
+                style={{
+                  flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px',
+                  textDecoration: 'none', fontSize: '10px', fontWeight: active ? 800 : 600,
+                  color: active ? '#10b981' : '#64748b', padding: '4px 0',
+                }}
+              >
+                <Icon size={18} />
+                <span>{label.split(' ')[0]}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Page Body */}
+        <main style={{ flex: 1, padding: '32px 28px', background: '#f8fafc' }} className="pb-24 md:pb-8">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
