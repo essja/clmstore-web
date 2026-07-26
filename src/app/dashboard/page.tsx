@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { TrendingUp, ShoppingBag, Clock, Star, ArrowRight, BellRing, Volume2, VolumeX } from 'lucide-react';
-import { dashboardApi } from '@/lib/api';
+import { dashboardApi, orderApi } from '@/lib/api';
 import { sound } from '@/lib/audio';
 import { formatCurrency, formatTimeAgo, getOrderStatusColor, getOrderStatusLabel } from '@/lib/utils';
 import type { Order } from '@/types';
@@ -19,7 +19,7 @@ export default function RestaurantOverview() {
 
   const { data: recentData } = useQuery({
     queryKey: ['restaurant', 'recent-orders'],
-    queryFn: () => dashboardApi.getOrders({ limit: 10 }).then((r) => r.data),
+    queryFn: () => orderApi.listForRestaurant({ limit: 10 }).then((r) => r.data),
     refetchInterval: 10000,
   });
 

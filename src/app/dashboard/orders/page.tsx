@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ShoppingBag, CheckCircle, Clock, ChefHat, Package, Truck, XCircle, ChevronLeft, ChevronRight } from 'lucide-react';
-import { dashboardApi } from '@/lib/api';
+import { dashboardApi, orderApi } from '@/lib/api';
 import { formatCurrency, formatTimeAgo, getOrderStatusColor, getOrderStatusLabel } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
@@ -15,13 +15,13 @@ export default function RestaurantOrdersPage() {
 
   const { data, isLoading } = useQuery({
     queryKey: ['restaurant', 'orders', status, page],
-    queryFn: () => dashboardApi.getOrders({ status: status || undefined, page, limit: 20 }).then((r) => r.data),
+    queryFn: () => orderApi.listForRestaurant({ status: status || undefined, page, limit: 20 }).then((r) => r.data),
     refetchInterval: 10000,
   });
 
   const updateStatusMutation = useMutation({
     mutationFn: ({ orderId, newStatus }: { orderId: number; newStatus: string }) =>
-      dashboardApi.updateOrderStatus(orderId, newStatus),
+      orderApi.updateStatus(orderId, newStatus),
     onSuccess: () => {
       toast.success('Order status updated! 🍳');
       qc.invalidateQueries({ queryKey: ['restaurant'] });

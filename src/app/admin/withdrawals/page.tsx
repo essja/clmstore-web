@@ -11,7 +11,7 @@ export default function AdminWithdrawalsPage() {
 
   const { data, isLoading } = useQuery({
     queryKey: ['admin', 'withdrawals', type, status],
-    queryFn: () => adminApi.getWithdrawals({ user_type: type, status }).then((r) => r.data),
+    queryFn: () => (type === 'rider' ? adminApi.getRiderWithdrawals({ status }) : adminApi.getRestaurantWithdrawals({ status })).then((r) => r.data),
   });
 
   const withdrawals = data?.data ?? [];

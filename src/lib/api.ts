@@ -77,6 +77,8 @@ export const restaurantApi = {
 
   getBySlug: (slug: string) => api.get(`/restaurants/${slug}`),
 
+  create: (data: Record<string, unknown>) => api.post('/restaurants', data),
+
   getMenu: (restaurantId: number) => api.get(`/restaurants/${restaurantId}/menu`),
 
   getReviews: (restaurantId: number, page = 1) =>

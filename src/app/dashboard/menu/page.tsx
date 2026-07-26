@@ -19,7 +19,7 @@ export default function RestaurantMenuPage() {
 
   const { data: menuData, isLoading: loadingMenu } = useQuery({
     queryKey: ['restaurant', 'menu', restaurantId],
-    queryFn: () => restaurantApi.getMenuItems(restaurantId!).then((r) => r.data),
+    queryFn: () => restaurantApi.getMenu(restaurantId!).then((r) => r.data),
     enabled: !!restaurantId,
   });
 
@@ -106,7 +106,7 @@ export default function RestaurantMenuPage() {
                 <p style={{ fontSize: '13px', color: '#64748b', marginTop: '4px' }} className="line-clamp-2">
                   {item.description ?? 'Delicious freshly prepared dish.'}
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', justifyBetween: 'space-between', marginTop: '14px', paddingTop: '14px', borderTop: '1px solid #f1f5f9' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '14px', paddingTop: '14px', borderTop: '1px solid #f1f5f9' }}>
                   <span className="badge badge-emerald">Available</span>
                 </div>
               </div>

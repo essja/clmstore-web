@@ -20,8 +20,8 @@ export default function AdminUsersPage() {
   });
 
   const suspendMutation = useMutation({
-    mutationFn: ({ userId, suspend }: { userId: string; suspend: boolean }) =>
-      adminApi.suspendUser(userId, suspend),
+    mutationFn: ({ userId, suspend }: { userId: string | number; suspend: boolean }) =>
+      suspend ? adminApi.suspendUser(Number(userId), 'Suspended by Admin') : adminApi.activateUser(Number(userId)),
     onSuccess: (_, { suspend }) => {
       toast.success(suspend ? 'User suspended 🚫' : 'User account un-suspended ✅');
       queryClient.invalidateQueries({ queryKey: ['admin', 'users'] });
