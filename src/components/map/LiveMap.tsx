@@ -16,6 +16,9 @@ interface LiveMapProps {
   center?: { lat: number; lng: number };
   zoom?: number;
   height?: string;
+  orderId?: number;
+  riderLocation?: { lat: number; lng: number } | null;
+  deliveryAddress?: any;
 }
 
 const DEFAULT_CENTER = { lat: 8.4844, lng: -13.2299 }; // Freetown, Sierra Leone

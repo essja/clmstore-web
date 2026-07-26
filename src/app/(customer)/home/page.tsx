@@ -261,7 +261,7 @@ export default function HomePage() {
             <div key={promo.title} className="premium-card" style={{
               position: 'relative', padding: '26px',
               background: promo.grad, borderColor: promo.border,
-              display: 'flex', flexDirection: 'column', justify: 'space-between',
+              display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
               minHeight: '170px', overflow: 'hidden',
             }}>
               <div style={{ position: 'absolute', top: '-10px', right: '-10px', fontSize: '5rem', opacity: 0.15, pointerEvents: 'none' }}>{promo.emoji}</div>

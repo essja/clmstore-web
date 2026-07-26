@@ -152,7 +152,7 @@ function FoodSearchResults({ q }: { q: string }) {
 
   return (
     <div style={{ marginBottom: '32px' }}>
-      <p style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', tracking: '0.05em', marginBottom: '12px' }}>
+      <p style={{ fontSize: '12px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
         Dishes matching &ldquo;{q}&rdquo;
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '12px' }}>
@@ -348,7 +348,7 @@ function RestaurantsContent() {
 
           {/* Sort & Options */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #f1f5f9', paddingTop: '16px' }}>
-            <div style={{ display: 'flex', itemsAlign: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <div>
                 <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', marginRight: '8px' }}>Sort by:</span>
                 <select
