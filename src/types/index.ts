@@ -131,8 +131,10 @@ export interface CartItem {
 // ── Order ─────────────────────────────────────────────────────────────────────
 export type OrderStatus =
   | 'pending'
+  | 'accepted'
   | 'confirmed'
   | 'preparing'
+  | 'ready'
   | 'ready_for_pickup'
   | 'out_for_delivery'
   | 'delivered'

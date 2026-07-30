@@ -19,8 +19,10 @@ function StatusTimeline({ currentStatus }: { currentStatus: OrderStatus }) {
 
   const labels: Record<OrderStatus, string> = {
     pending: 'Order placed',
+    accepted: 'Restaurant accepted',
     confirmed: 'Restaurant confirmed',
     preparing: 'Preparing your food',
+    ready: 'Ready for delivery',
     ready_for_pickup: 'Ready for pickup',
     out_for_delivery: 'Rider on the way',
     delivered: 'Delivered',

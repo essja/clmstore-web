@@ -66,7 +66,7 @@ export default function RiderLayout({ children }: { children: React.ReactNode })
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div style={{ textAlign: 'right' }}>
             <p style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>{user?.first_name} {user?.last_name}</p>
-            <p style={{ fontSize: '10px', color: '#94a3b8' }}>{(user as any)?.phone_number ?? 'Active Rider'}</p>
+            <p style={{ fontSize: '10px', color: '#94a3b8' }}>{user?.phone_number ?? 'Active Rider'}</p>
           </div>
           <button
             onClick={handleLogout}

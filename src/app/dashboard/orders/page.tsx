@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ShoppingBag, CheckCircle, Clock, ChefHat, Package, Truck, XCircle, ChevronLeft, ChevronRight } from 'lucide-react';
-import { dashboardApi, orderApi } from '@/lib/api';
+import { orderApi } from '@/lib/api';
 import { formatCurrency, formatTimeAgo, getOrderStatusColor, getOrderStatusLabel } from '@/lib/utils';
 import toast from 'react-hot-toast';
 

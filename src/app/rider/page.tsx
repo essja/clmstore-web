@@ -14,7 +14,7 @@ function DeliveryCard({ order, onStatusChange }: { order: Order; onStatusChange:
   const storeName = order.restaurant?.name ?? 'Partner Store';
   const storeAddress = order.restaurant?.address ?? 'Freetown, Sierra Leone';
   const customerAddress = deliveryAddr?.address_line1 ?? deliveryAddr?.address_line ?? 'Freetown, Sierra Leone';
-  const customerPhone = (order.customer as any)?.phone_number ?? deliveryAddr?.phone_number;
+  const customerPhone = order.customer?.phone_number ?? deliveryAddr?.phone_number;
   const deliveryInstructions = deliveryAddr?.delivery_instructions ?? order.special_instructions;
 
   // Google Maps navigation links
@@ -134,7 +134,7 @@ function DeliveryCard({ order, onStatusChange }: { order: Order; onStatusChange:
       </div>
 
       {/* Action Button */}
-      {(order.status as string) === 'ready' && (
+      {order.status === 'ready' && (
         <button
           onClick={() => onStatusChange(order.id, 'out_for_delivery')}
           className="btn-primary"
@@ -143,7 +143,7 @@ function DeliveryCard({ order, onStatusChange }: { order: Order; onStatusChange:
           <Navigation size={16} /> Pick Up Order & Start GPS Navigation 🛵
         </button>
       )}
-      {(order.status as string) === 'out_for_delivery' && (
+      {order.status === 'out_for_delivery' && (
         <button
           onClick={() => onStatusChange(order.id, 'delivered')}
           className="btn-primary"
