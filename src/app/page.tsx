@@ -138,12 +138,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How CLMStore Works (01, 02, 03) */}
+      {/* How RestoLink Works (01, 02, 03) */}
       <section style={{ padding: '0 24px 80px', maxWidth: '1000px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Simple 3-Step Process</span>
           <h2 style={{ fontWeight: 900, fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', color: '#0f172a', marginTop: '4px' }}>
-            How CLMStore Works
+            How RestoLink Works
           </h2>
         </div>
 
@@ -166,7 +166,7 @@ export default function LandingPage() {
       {/* Role Cards ("Built for Everyone in Freetown") */}
       <section style={{ padding: '0 24px 80px', maxWidth: '1000px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Join CLMStore Network</span>
+          <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Join RestoLink Network</span>
           <h2 style={{ fontWeight: 900, fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', color: '#0f172a', marginTop: '4px' }}>
             Built for Everyone in Freetown
           </h2>

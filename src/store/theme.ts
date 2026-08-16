@@ -20,7 +20,7 @@ export const useThemeStore = create<ThemeState>()(
       setLayout: (layout) => set({ layout }),
     }),
     {
-      name: 'clmstore-theme-settings',
+      name: 'restolink-theme-settings',
     }
   )
 );

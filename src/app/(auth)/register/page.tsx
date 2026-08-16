@@ -45,7 +45,7 @@ export default function RegisterPage() {
       const res = await authApi.register({ ...payload, phone_number: payload.phone_number || undefined });
       const { access_token, refresh_token, user } = res.data.data;
       setAuth({ access_token, refresh_token, token_type: 'Bearer', role: user.role, user_id: user.id }, user);
-      toast.success(`Welcome to CLMStore, ${user.first_name}! 🎉`);
+      toast.success(`Welcome to RestoLink, ${user.first_name}! 🎉`);
       if (data.role === 'rider') router.push('/rider');
       else if (data.role === 'restaurant_owner') router.push('/dashboard');
       else router.push('/home');
@@ -67,17 +67,17 @@ export default function RegisterPage() {
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <div style={{
             width: '56px', height: '56px', borderRadius: '16px',
-            background: 'linear-gradient(135deg, #16a34a, #15803d)',
+            background: 'linear-gradient(135deg, #2563EB, #10B981)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 14px',
-            boxShadow: '0 8px 20px rgba(22,163,74,0.35)',
+            boxShadow: '0 8px 20px rgba(37,99,235,0.35)',
           }}>
-            <span style={{ color: '#fff', fontWeight: 900, fontSize: '18px' }}>CL</span>
+            <span style={{ color: '#fff', fontWeight: 900, fontSize: '18px' }}>RL</span>
           </div>
           <h1 style={{ fontSize: '24px', fontWeight: 900, color: '#0f172a', marginBottom: '4px' }}>
             Create an Account ✨
           </h1>
-          <p style={{ color: '#64748b', fontSize: '13px' }}>Join CLMStore — Sierra Leone&apos;s #1 delivery app</p>
+          <p style={{ color: '#64748b', fontSize: '13px' }}>Join RestoLink — Sierra Leone&apos;s #1 delivery app</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -222,7 +222,7 @@ export default function RegisterPage() {
           </button>
 
           <p style={{ fontSize: '11px', color: '#94a3b8', textAlign: 'center', marginTop: '4px' }}>
-            By registering you agree to CLMStore&apos;s{' '}
+            By registering you agree to RestoLink&apos;s{' '}
             <Link href="/" style={{ color: '#16a34a', textDecoration: 'none' }}>Terms</Link> and{' '}
             <Link href="/" style={{ color: '#16a34a', textDecoration: 'none' }}>Privacy Policy</Link>.
           </p>

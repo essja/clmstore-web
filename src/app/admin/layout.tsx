@@ -58,16 +58,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/home" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '28px', padding: '0 8px' }}>
             <div style={{
               width: '40px', height: '40px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #10b981, #059669)',
+              background: 'linear-gradient(135deg, #2563EB, #10B981)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontWeight: 900, fontSize: '15px', color: '#fff',
-              boxShadow: '0 0 16px rgba(16, 185, 129, 0.4)',
+              boxShadow: '0 0 16px rgba(37, 99, 235, 0.4)',
             }}>
-              CL
+              RL
             </div>
             <div>
               <span style={{ fontWeight: 900, fontSize: '19px', color: '#ffffff', letterSpacing: '-0.02em', display: 'block', lineHeight: 1 }}>
-                CLMStore
+                RestoLink
               </span>
               <span style={{ fontSize: '10px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 Admin Console 🛡️
@@ -149,8 +149,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }} className="md:hidden">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '11px', color: '#fff' }}>CL</div>
-            <span style={{ fontWeight: 900, fontSize: '16px' }}>CLMStore Admin</span>
+             <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '11px', color: '#fff' }}>RL</div>
+            <span style={{ fontWeight: 900, fontSize: '16px' }}>RestoLink Admin</span>
           </div>
           <button onClick={handleLogout} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer' }}>
             <LogOut size={18} />

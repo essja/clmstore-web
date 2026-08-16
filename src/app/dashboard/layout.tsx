@@ -51,16 +51,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Link href="/home" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '28px', padding: '0 8px' }}>
             <div style={{
               width: '40px', height: '40px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #10b981, #059669)',
+              background: 'linear-gradient(135deg, #2563EB, #10B981)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontWeight: 900, fontSize: '15px', color: '#fff',
-              boxShadow: '0 0 16px rgba(16, 185, 129, 0.4)',
+              boxShadow: '0 0 16px rgba(37, 99, 235, 0.4)',
             }}>
-              CL
+              RL
             </div>
             <div>
               <span style={{ fontWeight: 900, fontSize: '19px', color: '#ffffff', letterSpacing: '-0.02em', display: 'block', lineHeight: 1 }}>
-                CLMStore
+                RestoLink
               </span>
               <span style={{ fontSize: '10px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 Store Dashboard 🍽️

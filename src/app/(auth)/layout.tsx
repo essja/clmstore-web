@@ -35,12 +35,12 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '64px' }}>
             <div style={{
               width: '40px', height: '40px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #22c55e, #15803d)',
+              background: 'linear-gradient(135deg, #2563EB, #10B981)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontWeight: 900, fontSize: '15px', color: '#fff',
-              boxShadow: '0 0 20px rgba(34, 197, 94, 0.4)',
-            }}>CL</div>
-            <span style={{ fontWeight: 900, fontSize: '20px', color: '#fff' }}>CLMStore</span>
+              boxShadow: '0 0 20px rgba(37, 99, 235, 0.4)',
+            }}>RL</div>
+            <span style={{ fontWeight: 900, fontSize: '20px', color: '#fff' }}>RestoLink</span>
           </div>
 
           <h2 style={{

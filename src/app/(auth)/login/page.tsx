@@ -50,17 +50,17 @@ export default function LoginPage() {
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{
             width: '56px', height: '56px', borderRadius: '16px',
-            background: 'linear-gradient(135deg, #22c55e, #15803d)',
+            background: 'linear-gradient(135deg, #2563EB, #10B981)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 16px',
-            boxShadow: '0 0 24px rgba(34, 197, 94, 0.4)',
+            boxShadow: '0 0 24px rgba(37, 99, 235, 0.4)',
           }}>
-            <span style={{ color: '#fff', fontWeight: 900, fontSize: '18px' }}>CL</span>
+            <span style={{ color: '#fff', fontWeight: 900, fontSize: '18px' }}>RL</span>
           </div>
           <h1 style={{ fontSize: '26px', fontWeight: 900, color: '#fff', marginBottom: '6px' }}>
             Welcome Back 👋
           </h1>
-          <p style={{ color: '#9ca3af', fontSize: '14px' }}>Sign in to your CLMStore account</p>
+          <p style={{ color: '#9ca3af', fontSize: '14px' }}>Sign in to your RestoLink account</p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '12px', flexWrap: 'wrap' }}>
             {['Customer', 'Rider', 'Restaurant', 'Admin'].map((r) => (
               <span key={r} className="badge badge-gray">{r}</span>

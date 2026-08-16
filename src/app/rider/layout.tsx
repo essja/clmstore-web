@@ -55,7 +55,7 @@ export default function RiderLayout({ children }: { children: React.ReactNode })
           </div>
           <div>
             <span style={{ fontWeight: 900, fontSize: '18px', color: '#ffffff', lineHeight: 1, display: 'block' }}>
-              CLMStore Rider
+              RestoLink Rider
             </span>
             <span style={{ fontSize: '10px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Freetown Fleet 🇸🇱

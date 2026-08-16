@@ -6,11 +6,11 @@ import Providers from './providers';
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
 
 export const metadata: Metadata = {
-  title: { default: 'CLMStore — Food Delivery in Sierra Leone', template: '%s | CLMStore' },
+  title: { default: 'RestoLink — Food Delivery in Sierra Leone', template: '%s | RestoLink' },
   description: 'Order food from the best restaurants in Freetown, Sierra Leone. Fast delivery, real-time tracking.',
   keywords: ['food delivery', 'Sierra Leone', 'Freetown', 'restaurant', 'order food'],
   openGraph: {
-    siteName: 'CLMStore',
+    siteName: 'RestoLink',
     type: 'website',
     locale: 'en_SL',
   },

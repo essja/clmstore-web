@@ -17,7 +17,7 @@ export default function AdminHelpForm({ restaurantName, restaurantId, onBack }: 
 
   const sendWhatsApp = () => {
     const msg = encodeURIComponent(
-      `Hello CLMStore! I need help setting up my menu.\n\nRestaurant: ${form.name}\nPhone: ${form.phone}\nNotes: ${form.notes || 'N/A'}\n\nPlease assist me.`
+      `Hello RestoLink! I need help setting up my menu.\n\nRestaurant: ${form.name}\nPhone: ${form.phone}\nNotes: ${form.notes || 'N/A'}\n\nPlease assist me.`
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
     setSubmitted(true);

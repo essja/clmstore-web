@@ -49,17 +49,17 @@ export default function Navbar() {
           <Link href="/home" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0 }}>
             <div style={{
               width: '38px', height: '38px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #1B8C4E, #146c3b)',
+              background: 'linear-gradient(135deg, #2563EB, #10B981)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 4px 14px rgba(27, 140, 78, 0.35)',
+              boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)',
             }}>
-              <span style={{ color: '#fff', fontWeight: 900, fontSize: '13px' }}>CL</span>
+              <span style={{ color: '#fff', fontWeight: 900, fontSize: '13px' }}>RL</span>
             </div>
             <div>
               <span style={{ fontWeight: 900, fontSize: '20px', color: '#0F172A', letterSpacing: '-0.02em', lineHeight: 1 }}>
-                CLM<span className="gradient-emerald">Store</span>
+                Resto<span className="gradient-emerald">Link</span>
               </span>
-              <span style={{ display: 'block', fontSize: '9px', fontWeight: 800, color: '#FF6B00', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <span style={{ display: 'block', fontSize: '9px', fontWeight: 800, color: '#10B981', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 Freetown SL 🇸🇱
               </span>
             </div>

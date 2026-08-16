@@ -123,7 +123,7 @@ export default function Footer() {
           alignItems: 'center', justifyContent: 'space-between',
           gap: '12px', fontSize: '12px', color: '#94a3b8',
         }}>
-          <p>© {new Date().getFullYear()} CLMStore · Built with <Heart size={12} style={{ color: '#ef4444', display: 'inline', margin: '0 2px' }} /> for Sierra Leone 🇸🇱</p>
+          <p>© {new Date().getFullYear()} RestoLink · Built with <Heart size={12} style={{ color: '#ef4444', display: 'inline', margin: '0 2px' }} /> for Sierra Leone 🇸🇱</p>
           <div style={{ display: 'flex', gap: '20px' }}>
             <Link href="/" style={{ color: '#cbd5e1', textDecoration: 'none' }}>Privacy Policy</Link>
             <Link href="/" style={{ color: '#cbd5e1', textDecoration: 'none' }}>Terms of Service</Link>
