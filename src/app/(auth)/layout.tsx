@@ -33,13 +33,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         {/* Logo */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '64px' }}>
-            <div style={{
+            <img src="/logo.jpg" alt="RestoLink Logo" style={{
               width: '40px', height: '40px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #2563EB, #10B981)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 900, fontSize: '15px', color: '#fff',
               boxShadow: '0 0 20px rgba(37, 99, 235, 0.4)',
-            }}>RL</div>
+              objectFit: 'cover'
+            }} />
             <span style={{ fontWeight: 900, fontSize: '20px', color: '#fff' }}>RestoLink</span>
           </div>
 

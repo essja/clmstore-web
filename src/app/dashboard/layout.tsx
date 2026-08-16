@@ -49,15 +49,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div>
           {/* Brand Logo Header */}
           <Link href="/home" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '28px', padding: '0 8px' }}>
-            <div style={{
+            <img src="/logo.jpg" alt="RestoLink Logo" style={{
               width: '40px', height: '40px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #2563EB, #10B981)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 900, fontSize: '15px', color: '#fff',
               boxShadow: '0 0 16px rgba(37, 99, 235, 0.4)',
-            }}>
-              RL
-            </div>
+              objectFit: 'cover'
+            }} />
             <div>
               <span style={{ fontWeight: 900, fontSize: '19px', color: '#ffffff', letterSpacing: '-0.02em', display: 'block', lineHeight: 1 }}>
                 RestoLink
@@ -142,7 +138,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           alignItems: 'center', justifyContent: 'space-between',
         }} className="mobile-only-flex">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg, #2563EB, #10B981)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '11px', color: '#fff' }}>RL</div>
+            <img src="/logo.jpg" alt="RestoLink Logo" style={{ width: '28px', height: '28px', borderRadius: '8px', objectFit: 'cover' }} />
             <span style={{ fontWeight: 900, fontSize: '16px' }}>RestoLink Dashboard</span>
           </div>
           <button onClick={handleLogout} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer' }}>

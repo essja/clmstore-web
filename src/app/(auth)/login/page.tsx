@@ -48,15 +48,12 @@ export default function LoginPage() {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{
+          <img src="/logo.jpg" alt="RestoLink Logo" style={{
             width: '56px', height: '56px', borderRadius: '16px',
-            background: 'linear-gradient(135deg, #2563EB, #10B981)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 16px',
             boxShadow: '0 0 24px rgba(37, 99, 235, 0.4)',
-          }}>
-            <span style={{ color: '#fff', fontWeight: 900, fontSize: '18px' }}>RL</span>
-          </div>
+            objectFit: 'cover'
+          }} />
           <h1 style={{ fontSize: '26px', fontWeight: 900, color: '#fff', marginBottom: '6px' }}>
             Welcome Back 👋
           </h1>

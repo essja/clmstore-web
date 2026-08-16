@@ -65,15 +65,12 @@ export default function RegisterPage() {
       }}>
         {/* Logo Header */}
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-          <div style={{
+          <img src="/logo.jpg" alt="RestoLink Logo" style={{
             width: '56px', height: '56px', borderRadius: '16px',
-            background: 'linear-gradient(135deg, #2563EB, #10B981)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 14px',
             boxShadow: '0 8px 20px rgba(37,99,235,0.35)',
-          }}>
-            <span style={{ color: '#fff', fontWeight: 900, fontSize: '18px' }}>RL</span>
-          </div>
+            objectFit: 'cover'
+          }} />
           <h1 style={{ fontSize: '24px', fontWeight: 900, color: '#0f172a', marginBottom: '4px' }}>
             Create an Account ✨
           </h1>

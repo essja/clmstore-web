@@ -64,13 +64,11 @@ export default function SidebarLayout({ children }: { children: React.ReactNode 
         <div>
           {/* Brand Logo */}
           <Link href="/home" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', marginBottom: '32px', padding: '0 8px' }}>
-            <div style={{
+            <img src="/logo.jpg" alt="RestoLink Logo" style={{
               width: '42px', height: '42px', borderRadius: '14px',
-              background: 'linear-gradient(135deg, #2563EB, #10B981)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 900, fontSize: '15px', color: '#fff',
               boxShadow: '0 0 20px rgba(37, 99, 235, 0.4)',
-            }}>RL</div>
+              objectFit: 'cover'
+            }} />
             <div>
               <span style={{ fontWeight: 900, fontSize: '20px', color: '#fff', letterSpacing: '-0.02em', display: 'block', lineHeight: 1 }}>
                 RestoLink

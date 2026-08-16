@@ -47,14 +47,11 @@ export default function Navbar() {
         }}>
           {/* Brand Logo */}
           <Link href="/home" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0 }}>
-            <div style={{
+            <img src="/logo.jpg" alt="RestoLink Logo" style={{
               width: '38px', height: '38px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #2563EB, #10B981)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
               boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)',
-            }}>
-              <span style={{ color: '#fff', fontWeight: 900, fontSize: '13px' }}>RL</span>
-            </div>
+              objectFit: 'cover'
+            }} />
             <div>
               <span style={{ fontWeight: 900, fontSize: '20px', color: '#0F172A', letterSpacing: '-0.02em', lineHeight: 1 }}>
                 Resto<span className="gradient-emerald">Link</span>
