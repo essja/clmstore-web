@@ -41,10 +41,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* ── RESTAURANT VENDOR SIDEBAR ── */}
       <aside style={{
         width: '260px', flexShrink: 0, background: '#0b132b', color: '#ffffff',
-        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        flexDirection: 'column', justifyContent: 'space-between',
         padding: '24px 16px', borderRight: '1px solid rgba(255, 255, 255, 0.08)',
         position: 'sticky', top: 0, height: '100vh', zIndex: 40,
-      }} className="hidden md:flex">
+      }} className="responsive-sidebar">
         
         <div>
           {/* Brand Logo Header */}
@@ -139,11 +139,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Mobile Top Header */}
         <div style={{
           background: '#0b132b', color: '#ffffff', padding: '14px 20px',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }} className="md:hidden">
+          alignItems: 'center', justifyContent: 'space-between',
+        }} className="mobile-only-flex">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '11px', color: '#fff' }}>CL</div>
-            <span style={{ fontWeight: 900, fontSize: '16px' }}>Store Dashboard</span>
+            <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'linear-gradient(135deg, #2563EB, #10B981)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '11px', color: '#fff' }}>RL</div>
+            <span style={{ fontWeight: 900, fontSize: '16px' }}>RestoLink Dashboard</span>
           </div>
           <button onClick={handleLogout} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer' }}>
             <LogOut size={18} />
@@ -154,8 +154,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div style={{
           background: '#ffffff', borderTop: '1px solid #e2e8f0',
           position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 40,
-          display: 'flex', padding: '6px 0', boxShadow: '0 -4px 16px rgba(0,0,0,0.06)',
-        }} className="md:hidden">
+          padding: '6px 0', boxShadow: '0 -4px 16px rgba(0,0,0,0.06)',
+        }} className="mobile-only-fixed-flex">
           {NAV.map(({ href, label, icon: Icon, exact }) => {
             const active = isActive(href, exact);
             return (

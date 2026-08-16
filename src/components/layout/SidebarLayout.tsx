@@ -55,10 +55,10 @@ export default function SidebarLayout({ children }: { children: React.ReactNode 
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-primary)' }}>
 
       {/* ── LEFT FIXED SIDEBAR ── */}
-      <aside className="desktop-sidebar" style={{
+      <aside className="desktop-sidebar responsive-sidebar" style={{
         width: '260px', flexShrink: 0, background: '#0b132b', color: '#fff',
         position: 'fixed', top: 0, bottom: 0, left: 0, zIndex: 40,
-        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        flexDirection: 'column', justifyContent: 'space-between',
         padding: '24px 16px', borderRight: '1px solid rgba(255,255,255,0.08)',
       }}>
         <div>

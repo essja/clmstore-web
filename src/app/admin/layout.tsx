@@ -48,10 +48,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* ── ADMIN SIDEBAR ── */}
       <aside style={{
         width: '260px', flexShrink: 0, background: '#0b132b', color: '#ffffff',
-        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        flexDirection: 'column', justifyContent: 'space-between',
         padding: '24px 16px', borderRight: '1px solid rgba(255, 255, 255, 0.08)',
         position: 'sticky', top: 0, height: '100vh', zIndex: 40,
-      }} className="hidden md:flex">
+      }} className="responsive-sidebar">
         
         <div>
           {/* Brand Logo Header */}
@@ -146,8 +146,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Mobile Header Bar */}
         <div style={{
           background: '#0b132b', color: '#ffffff', padding: '14px 20px',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }} className="md:hidden">
+          alignItems: 'center', justifyContent: 'space-between',
+        }} className="mobile-only-flex">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
              <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '11px', color: '#fff' }}>RL</div>
             <span style={{ fontWeight: 900, fontSize: '16px' }}>RestoLink Admin</span>
