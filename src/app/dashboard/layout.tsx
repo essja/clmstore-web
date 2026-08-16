@@ -12,7 +12,7 @@ const NAV = [
   { href: '/dashboard/orders', label: 'Orders Stream', icon: ShoppingBag },
   { href: '/dashboard/menu', label: 'Menu Manager', icon: UtensilsCrossed },
   { href: '/dashboard/earnings', label: 'Earnings & Payouts', icon: BarChart3 },
-  { href: '/dashboard/settings', label: 'Store Settings', icon: Settings },
+  { href: '/dashboard/settings', label: 'Restaurant Settings', icon: Settings },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -59,7 +59,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 RestoLink
               </span>
               <span style={{ fontSize: '10px', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Store Dashboard 🍽️
+                Restaurant Dashboard 🍽️
               </span>
             </div>
           </Link>

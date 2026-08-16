@@ -1,9 +1,9 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { Store, Camera, Save, MapPin, Phone, Clock, DollarSign, Image } from 'lucide-react';
-import { restaurantApi } from '@/lib/api';
+import { Store, Camera, Save, MapPin, Phone, Clock, DollarSign, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { restaurantApi, fileApi } from '@/lib/api';
 import toast from 'react-hot-toast';
 
 export default function RestaurantSettingsPage() {
@@ -14,7 +14,19 @@ export default function RestaurantSettingsPage() {
     queryFn: () => restaurantApi.getMyRestaurant().then((r) => r.data).catch(() => null),
   });
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue, watch } = useForm();
+  
+  const logoUrl = watch('logo');
+  const coverImageUrl = watch('cover_image');
+
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
+
+  const [hoverLogo, setHoverLogo] = useState(false);
+  const [hoverCover, setHoverCover] = useState(false);
+
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const coverInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (myRestaurant) {
@@ -22,42 +34,77 @@ export default function RestaurantSettingsPage() {
         name: myRestaurant.name ?? '',
         description: myRestaurant.description ?? '',
         cuisine_type: myRestaurant.cuisine_type ?? '',
-        phone_number: myRestaurant.phone_number ?? '',
+        phone: myRestaurant.phone ?? '',
         address: myRestaurant.address ?? '',
-        minimum_order: myRestaurant.minimum_order ?? 0,
+        min_order: myRestaurant.min_order ?? 0,
         delivery_fee: myRestaurant.delivery_fee ?? 0,
-        estimated_delivery_time: myRestaurant.estimated_delivery_time ?? 35,
-        logo_url: myRestaurant.logo_url ?? '',
-        cover_image_url: myRestaurant.cover_image_url ?? '',
+        avg_delivery_time_min: myRestaurant.avg_delivery_time_min ?? 35,
+        logo: myRestaurant.logo ?? '',
+        cover_image: myRestaurant.cover_image ?? '',
       });
     }
   }, [myRestaurant, reset]);
 
   const saveMutation = useMutation({
-    mutationFn: (data: any) =>
-      myRestaurant
-        ? restaurantApi.updateMyRestaurant(data)
-        : restaurantApi.create(data),
+    mutationFn: (data: any) => restaurantApi.updateMyRestaurant(data),
     onSuccess: () => {
-      toast.success('Store details saved & submitted! 🎉');
+      toast.success('Restaurant details saved successfully! 🍔');
       qc.invalidateQueries({ queryKey: ['restaurant'] });
     },
-    onError: (err: any) => toast.error(err?.response?.data?.detail ?? 'Failed to save store details'),
+    onError: (err: any) => toast.error(err?.response?.data?.detail ?? 'Failed to save restaurant details'),
   });
 
   const onSubmit = (data: any) => {
     saveMutation.mutate(data);
   };
 
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingLogo(true);
+    try {
+      const url = await fileApi.uploadImage(file, 'restaurants/logos');
+      setValue('logo', url);
+      toast.success('Logo uploaded successfully! 🎨');
+    } catch (err: any) {
+      toast.error('Failed to upload logo image');
+    } finally {
+      setUploadingLogo(false);
+    }
+  };
+
+  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingCover(true);
+    try {
+      const url = await fileApi.uploadImage(file, 'restaurants/covers');
+      setValue('cover_image', url);
+      toast.success('Cover banner uploaded successfully! 📸');
+    } catch (err: any) {
+      toast.error('Failed to upload cover banner');
+    } finally {
+      setUploadingCover(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '50vh' }}>
+        <Loader2 className="animate-spin text-emerald-600" size={32} />
+      </div>
+    );
+  }
+
   return (
     <div style={{ maxWidth: '800px' }}>
       {/* Title */}
       <div style={{ marginBottom: '24px' }}>
         <h1 style={{ fontSize: '26px', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em' }}>
-          Store Settings & Branding ⚙️
+          Restaurant Settings & Branding ⚙️
         </h1>
         <p style={{ fontSize: '14px', color: '#64748b', marginTop: '2px' }}>
-          Configure store logo, banner cover, location address, delivery fees, and operating details
+          Configure restaurant logo, banner cover, address, delivery parameters, and operating details
         </p>
       </div>
 
@@ -65,43 +112,118 @@ export default function RestaurantSettingsPage() {
         <div className="premium-card" style={{ padding: '32px', background: '#ffffff', marginBottom: '24px' }}>
           
           <h2 style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a', marginBottom: '20px' }}>
-            🏪 Basic Store Information
+            🍔 Basic Restaurant Information
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
-            {/* Logo URL */}
-            <div>
-              <label style={{ fontSize: '13px', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>
-                Store Logo Image URL
-              </label>
-              <input
-                type="url"
-                {...register('logo_url')}
-                placeholder="https://example.com/logo.jpg"
-                className="input-field"
-                style={{ fontSize: '13px' }}
-              />
+          {/* Image Uploaders Row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '24px' }}>
+            
+            {/* Restaurant Logo Uploader */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '13px', fontWeight: 800, color: '#334155' }}>Restaurant Logo</span>
+              <div 
+                onClick={() => logoInputRef.current?.click()}
+                onMouseEnter={() => setHoverLogo(true)}
+                onMouseLeave={() => setHoverLogo(false)}
+                style={{
+                  height: '140px', borderRadius: '18px', border: '2px dashed #cbd5e1',
+                  background: '#f8fafc', display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                  position: 'relative', overflow: 'hidden', transition: 'all 0.2s',
+                }}
+              >
+                <input 
+                  type="file" 
+                  ref={logoInputRef} 
+                  onChange={handleLogoUpload} 
+                  accept="image/*" 
+                  style={{ display: 'none' }} 
+                />
+                {uploadingLogo ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                    <Loader2 size={24} className="animate-spin text-emerald-600" />
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>Uploading...</span>
+                  </div>
+                ) : logoUrl ? (
+                  <>
+                    <img 
+                      src={logoUrl} 
+                      alt="Logo Preview" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    />
+                    <div style={{
+                      position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      opacity: hoverLogo ? 1 : 0, transition: 'opacity 0.2s',
+                    }}>
+                      <Camera size={20} color="#fff" />
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', color: '#64748b' }}>
+                    <Camera size={24} />
+                    <span style={{ fontSize: '12px', fontWeight: 600 }}>Click to Upload Logo</span>
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Cover Image URL */}
-            <div>
-              <label style={{ fontSize: '13px', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>
-                Cover Banner Image URL
-              </label>
-              <input
-                type="url"
-                {...register('cover_image_url')}
-                placeholder="https://example.com/banner.jpg"
-                className="input-field"
-                style={{ fontSize: '13px' }}
-              />
+            {/* Cover Banner Uploader */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '13px', fontWeight: 800, color: '#334155' }}>Cover Banner</span>
+              <div 
+                onClick={() => coverInputRef.current?.click()}
+                onMouseEnter={() => setHoverCover(true)}
+                onMouseLeave={() => setHoverCover(false)}
+                style={{
+                  height: '140px', borderRadius: '18px', border: '2px dashed #cbd5e1',
+                  background: '#f8fafc', display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                  position: 'relative', overflow: 'hidden', transition: 'all 0.2s',
+                }}
+              >
+                <input 
+                  type="file" 
+                  ref={coverInputRef} 
+                  onChange={handleCoverUpload} 
+                  accept="image/*" 
+                  style={{ display: 'none' }} 
+                />
+                {uploadingCover ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                    <Loader2 size={24} className="animate-spin text-emerald-600" />
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>Uploading...</span>
+                  </div>
+                ) : coverImageUrl ? (
+                  <>
+                    <img 
+                      src={coverImageUrl} 
+                      alt="Cover Preview" 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    />
+                    <div style={{
+                      position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      opacity: hoverCover ? 1 : 0, transition: 'opacity 0.2s',
+                    }}>
+                      <ImageIcon size={20} color="#fff" />
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', color: '#64748b' }}>
+                    <ImageIcon size={24} />
+                    <span style={{ fontSize: '12px', fontWeight: 600 }}>Click to Upload Banner</span>
+                  </div>
+                )}
+              </div>
             </div>
+
           </div>
 
           {/* Restaurant Name */}
           <div style={{ marginBottom: '18px' }}>
             <label style={{ fontSize: '13px', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>
-              Restaurant / Store Name *
+              Restaurant Name *
             </label>
             <input
               type="text"
@@ -116,7 +238,7 @@ export default function RestaurantSettingsPage() {
           {/* Description */}
           <div style={{ marginBottom: '18px' }}>
             <label style={{ fontSize: '13px', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>
-              Store Description
+              Restaurant Description
             </label>
             <textarea
               {...register('description')}
@@ -131,7 +253,7 @@ export default function RestaurantSettingsPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '18px' }}>
             <div>
               <label style={{ fontSize: '13px', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>
-                Cuisine / Store Category
+                Cuisine / Restaurant Category
               </label>
               <input
                 type="text"
@@ -144,11 +266,11 @@ export default function RestaurantSettingsPage() {
 
             <div>
               <label style={{ fontSize: '13px', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>
-                Store Phone Number
+                Restaurant Phone Number
               </label>
               <input
                 type="tel"
-                {...register('phone_number')}
+                {...register('phone')}
                 placeholder="+232 76 000 000"
                 className="input-field"
                 style={{ fontSize: '13px' }}
@@ -184,7 +306,7 @@ export default function RestaurantSettingsPage() {
               </label>
               <input
                 type="number"
-                {...register('minimum_order', { valueAsNumber: true })}
+                {...register('min_order', { valueAsNumber: true })}
                 className="input-field"
                 style={{ fontSize: '14px' }}
               />
@@ -208,7 +330,7 @@ export default function RestaurantSettingsPage() {
               </label>
               <input
                 type="number"
-                {...register('estimated_delivery_time', { valueAsNumber: true })}
+                {...register('avg_delivery_time_min', { valueAsNumber: true })}
                 className="input-field"
                 style={{ fontSize: '14px' }}
               />
@@ -223,7 +345,7 @@ export default function RestaurantSettingsPage() {
           className="btn-primary"
           style={{ width: '100%', padding: '14px', borderRadius: '14px', fontSize: '15px' }}
         >
-          <Save size={18} /> {saveMutation.isPending ? 'Saving Details...' : 'Save Store Settings'}
+          <Save size={18} /> {saveMutation.isPending ? 'Saving Details...' : 'Save Restaurant Settings'}
         </button>
       </form>
     </div>
